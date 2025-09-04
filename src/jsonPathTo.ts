@@ -111,12 +111,11 @@ function pathToStringIndexes(path: Frame[]): string {
 
 function readString(text: string, pos: number): { text: string; pos: number; } {
   let i = findEndQuote(text, pos + 1);
-  var textPos = {
+
+  return {
     text: text.substring(pos + 1, i),
     pos: i + 1,
   };
-
-  return textPos;
 }
 
 // Find the next end quote
@@ -125,6 +124,7 @@ function findEndQuote(text: string, i: number) {
     // Handle backtracking to find if this quote is escaped
     if (text[i] === "\\") {
       i += 2;
+      continue;
     }
 
     if (text[i] === '"') {
