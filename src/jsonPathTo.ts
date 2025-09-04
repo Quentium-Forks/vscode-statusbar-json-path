@@ -1,8 +1,8 @@
 // Used from https://github.com/nidu/vscode-copy-json-path
 
 enum ColType {
-  Object, // eslint-disable-line @typescript-eslint/naming-convention
-  Array, // eslint-disable-line @typescript-eslint/naming-convention
+  object,
+  array,
 }
 
 interface Frame {
@@ -23,7 +23,7 @@ export function jsonPathTo(text: string, offset: number, separatorType: string) 
         const { text: s, pos: newPos } = readString(text, pos);
         if (stack.length) {
           const frame = stack[stack.length - 1];
-          if (frame.colType === ColType.Object && isInKey) {
+          if (frame.colType === ColType.object && isInKey) {
             frame.key = s;
             isInKey = false;
           }
@@ -31,11 +31,11 @@ export function jsonPathTo(text: string, offset: number, separatorType: string) 
         pos = newPos;
         break;
       case "{":
-        stack.push({ colType: ColType.Object });
+        stack.push({ colType: ColType.object });
         isInKey = true;
         break;
       case "[":
-        stack.push({ colType: ColType.Array, index: 0 });
+        stack.push({ colType: ColType.array, index: 0 });
         break;
       case "]":
         stack.pop();
@@ -47,7 +47,7 @@ export function jsonPathTo(text: string, offset: number, separatorType: string) 
         if (stack.length) {
           const frame = stack[stack.length - 1];
           if (frame) {
-            if (frame.colType === ColType.Object) {
+            if (frame.colType === ColType.object) {
               isInKey = true;
             } else if (frame.index !== undefined) {
               frame.index++;
@@ -73,7 +73,7 @@ export function jsonPathTo(text: string, offset: number, separatorType: string) 
 function pathToStringDot(path: Frame[]): string {
   let s = "";
   for (const frame of path) {
-    if (frame.colType === ColType.Object) {
+    if (frame.colType === ColType.object) {
       if (frame.key) {
         if (!frame.key.match(/^[a-zA-Z$#@&%~\-_][a-zA-Z\d$#@&%~\-_]*$/)) {
           s += `["${frame.key}"]`;
@@ -94,7 +94,7 @@ function pathToStringDot(path: Frame[]): string {
 function pathToStringIndexes(path: Frame[]): string {
   let s = "";
   for (const frame of path) {
-    if (frame.colType === ColType.Object) {
+    if (frame.colType === ColType.object) {
       if (frame.key) {
         if (!frame.key.match(/^[a-zA-Z$#@&%~\-_][a-zA-Z\d$#@&%~\-_]*$/)) {
           s += `["${frame.key}"]`;
@@ -109,7 +109,7 @@ function pathToStringIndexes(path: Frame[]): string {
   return s;
 }
 
-function readString(text: string, pos: number): { text: string; pos: number } {
+function readString(text: string, pos: number): { text: string; pos: number; } {
   let i = findEndQuote(text, pos + 1);
   var textPos = {
     text: text.substring(pos + 1, i),

@@ -2,7 +2,7 @@
   "name": "vscode-statusbar-json-path",
   "displayName": "JSON Path Status Bar",
   "description": "Shows the path to the selected JSON property in the status bar",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Rich Somerfield",
   "contributors": [
     "Quentin Lienhardt"
@@ -18,7 +18,7 @@
     "url": "https://github.com/richie5um/vscode-statusbar-json-path/issues"
   },
   "engines": {
-    "vscode": "^1.70.0"
+    "vscode": "^1.93.0"
   },
   "activationEvents": [
     "onLanguage:json",
@@ -64,16 +64,15 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "lint": "eslint src"
   },
   "devDependencies": {
-    "@types/node": "^18.7.11",
-    "@types/vscode": "^1.70.0",
-    "@typescript-eslint/eslint-plugin": "^5.34.0",
-    "@typescript-eslint/parser": "^5.34.0",
-    "eslint": "^8.22.0",
-    "typescript": "^4.7.4",
-    "vsce": "^2.10.2"
+    "@types/node": "^24.3.0",
+    "@types/vscode": "^1.93.0",
+    "@typescript-eslint/eslint-plugin": "^8.42.0",
+    "@typescript-eslint/parser": "^8.42.0",
+    "@vscode/vsce": "^3.6.0",
+    "eslint": "^9.34.0",
+    "typescript": "^5.9.2"
   }
 }
