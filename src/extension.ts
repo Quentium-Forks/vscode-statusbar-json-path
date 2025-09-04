@@ -46,10 +46,16 @@ function updateStatus(status: vscode.StatusBarItem): void {
     const text = editor.document.getText();
     const config = vscode.workspace.getConfiguration("statusBarJSONPath");
     const sep = config.get("keysSeparators") as string;
+    const maxLength = config.get("maxLength") as number;
     const path = jsonPathTo(text, editor.document.offsetAt(editor.selection.active), sep);
     currentString = path;
 
-    status.text = "JSONPath: " + path;
+    if (path.length < maxLength) {
+      status.text = "JSONPath: " + path;
+    } else {
+      status.text = "JSONPath: " + path.slice(0, maxLength / 2) + "..." + path.slice(-maxLength / 2);
+    }
+
     status.tooltip = "Click to copy to clipboard";
   } catch (ex) {
     if (ex instanceof SyntaxError) {

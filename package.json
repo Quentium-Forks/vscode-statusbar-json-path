@@ -55,6 +55,13 @@
             "Use indexes (Python friendly) for keys separators"
           ],
           "scope": "resource"
+        },
+        "statusBarJSONPath.maxLength": {
+          "type": "number",
+          "default": 30,
+          "description": "Maximum length of the displayed JSONPath in the status bar. Longer paths will be truncated.",
+          "minimum": 10,
+          "scope": "resource"
         }
       }
     }
